@@ -15,7 +15,7 @@ class ProductManager {
     async getProductList(limit = null) {
         const list = await fs.promises.readFile(this.path, 'utf-8');
         this.productList = [...JSON.parse(list).data];
-        console.log(this.productList); // Depuración
+        //console.log(this.productList); // Depuración
         
         if (limit) {
             return this.productList.slice(0, limit);
@@ -45,7 +45,8 @@ class ProductManager {
 
     async updateProduct(productID, updatedProduct){
         await this.getProductList();
-        const index = this.productList.findIndex(p => p.id === productID);
+        console.log("producto "+ updatedProduct)
+        const index = this.productList.findIndex(p => p.id === Number(productID));
         if (index > -1) {
             this.productList[index] = {...this.productList[index],...updatedProduct};
             await fs.promises.writeFile(this.path, JSON.stringify({data: this.productList}));
@@ -55,7 +56,7 @@ class ProductManager {
 
     async deleteProduct(productID){
         await this.getProductList();
-        const index = this.productList.findIndex(p => p.id === productID);
+        const index = this.productList.findIndex(p => p.id === Number(productID));
         if (index > -1) {
             this.productList.splice(index, 1);
             await fs.promises.writeFile(this.path, JSON.stringify({data: this.productList}));

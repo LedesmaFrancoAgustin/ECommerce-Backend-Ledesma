@@ -1,0 +1,129 @@
+
+<div class="containerViews">
+    
+    <div class="containerProducts">
+        <h1 class=""> Productos </h1>
+        <div  id="cartsProducts" class="cartsProducts">
+        </div>
+    </div>
+
+    <div class="containerEditProduct"> 
+        
+        <div class="container">
+        <h2> <center>Agregar Producto </center></h2>
+        <form id="addProductForm"method="post">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="code">Code</label>
+                <input type="text" id="code" name="code" required>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" id="price" name="price" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status" required>
+                    <option value="True">Verdadero</option>
+                    <option value="False">Falso</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="stock">Stock</label>
+                <input type="number" id="stock" name="stock" required>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input type="text" id="category" name="category" required>
+            </div>
+            <div class="form-group">
+                <label for="thumbnails">Thumbnails (comma-separated URLs)</label>
+                <input type="text" id="thumbnails" name="thumbnails">
+            </div>
+            <div class="form-group">
+                <button type="submit">Agregar Producto</button>
+            </div>
+        </form>
+        </div>
+
+        <div class="container">
+            <h2> <center>Actualizar Producto </center></h2>
+            <form id="updateProductForm"method="post">
+                <div class="form-group">
+                    <label for="id">ID</label>
+                    <input type="text" id="updateId" name="id" required>
+                </div>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="updateTitle" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="updateDescription" name="description" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="code">Code</label>
+                    <input type="text" id="updateCode" name="code" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" id="updatePrice" name="price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="updateStatus" name="status" required>
+                        <option value="True">Verdadero</option>
+                        <option value="False">Falso</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="stock">Stock</label>
+                    <input type="number" id="updateStock" name="stock" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <input type="text" id="updateCategory" name="category" required>
+                </div>
+                <div class="form-group">
+                    <label for="thumbnails">Thumbnails (comma-separated URLs)</label>
+                    <input type="text" id="updateThumbnails" name="thumbnails">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Actualizar Producto</button>
+                </div>
+            </form>
+        </div>
+
+         <div class="containerClearProduct">
+            <div class="ContainerClear">
+               <h2> <center>Eliminar Producto </center></h2>
+                <form id="clearProductForm"method="post">
+                    <div class="form-group">
+                        <label for="id">ID</label>
+                        <input type="text" id="clearId" name="id" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Eliminar Producto</button>
+                    </div>
+                </form> 
+            </div> 
+        </div>
+
+        
+    </div> 
+
+
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="./js/realTimeProducts.js"></script>
+
+

@@ -30,6 +30,7 @@ router.get('/', async (req, res) => {
     const { limit } = req.query;
     console.log("limit : " + limit);
     const productList = await productManager.getProductList(limit ? Number(limit) : null);
+    console.log(productList);
     res.status(200).json({ resultado: productList });
 });
 

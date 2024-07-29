@@ -1,0 +1,44 @@
+
+    <div class="containerHome">
+        {{#each productList}}
+            <div class="product">
+                <div>
+                    <p>Id: </p>
+                    {{this.id}}
+                </div>
+                <div>
+                    <p>Title: </p>
+                    {{this.title}}
+                </div>
+                <div>
+                    <p>Description: </p>
+                    {{this.description}}
+                </div>
+                <div>
+                    <p>Code: </p>
+                    {{this.code}}
+                </div>
+                <div>
+                    <p>Price: </p>
+                    {{this.price}}
+                </div>
+                <div>
+                    <p>Status: </p>
+                    {{this.status}}
+                </div>
+                <div>
+                    <p>Stock: </p>
+                    {{this.stock}}
+                </div>
+                <div>
+                    <p>Category: </p>
+                    {{this.category}}
+                </div>
+                <div>
+                    <p>Thumbnails: </p>
+                    {{this.thumbnails}}
+                </div>
+            </div>
+        {{/each}}
+    </div>
+
