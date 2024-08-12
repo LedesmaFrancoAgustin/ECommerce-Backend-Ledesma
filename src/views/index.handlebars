@@ -1,0 +1,31 @@
+
+<div>
+    <h1>Lista de Productos</h1>
+
+    {{#if productList.length}}
+        <div class="product-list">
+            {{#each productList}}
+                <div class="product-card">
+                    <h2 >{{this.title}}</h2>
+                    <p>{{this.description}}</p>
+                    <p>Precio: ${{this.price}}</p>
+                    <p>Categoría: {{this.category}}</p>
+                    <form  method="POST" class="add-to-cart-form" id="addProductFormMongo">
+                        <input type="hidden" name="idProduct" id="idProduct" value="{{this._id}}">
+                        <input type="number" name="quantity" value="1" min="1" id="quantity" required>
+                        <button type="submit" class="btn">Agregar al Carrito</button>
+                    </form>
+                </div>
+            {{/each}}
+        </div>
+
+    
+    {{else}}
+        <p>No se encontraron productos.</p>
+    {{/if}}
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="./js/index.js"></script>
+

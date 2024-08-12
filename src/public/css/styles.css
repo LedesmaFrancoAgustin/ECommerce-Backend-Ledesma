@@ -116,3 +116,119 @@
         display: flex;
         align-items: center
     }
+
+    /* Product List Styles */
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 300px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.product-card h2 {
+    font-size: 1.5rem;
+    margin: 0 0 10px;
+}
+
+.product-card p {
+    font-size: 1rem;
+    margin: 0 0 10px;
+}
+
+.add-to-cart-form {
+    margin-top: 10px;
+}
+
+.add-to-cart-form input[type="number"] {
+    width: 60px;
+    text-align: center;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.pagination .btn {
+    font-size: 1rem;
+    padding: 10px 15px;
+    background-color: #007bff;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.pagination .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Product Details Styles */
+.product-details {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-details h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.product-details p {
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+.product-details .btn {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-card {
+        width: 100%;
+        max-width: 500px;
+    }
+}
+
+

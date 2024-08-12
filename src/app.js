@@ -6,6 +6,7 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
 
+
 import { __dirname } from './utils.js';
 
 import { Server } from 'socket.io';
@@ -15,8 +16,13 @@ import cartsRouter from './routes/carts.router.js';
 
 import ViewRoutersHome from  './routes/home.router.js'
 import ViewRoutersRealTimeProducts from  './routes/realTimeProducts.router.js'
+import index from  './routes/index.router.js'
+
 
 import ProductManager from './Class/productManager.js';
+import mongoose from 'mongoose';
+
+import CartManagerMG from './Class/cartManagerMongo.js';
 
 
 
@@ -34,12 +40,17 @@ app.use('/api/products',productsRouter)
 app.use('/api/carts', cartsRouter)
 app.use('/home', ViewRoutersHome);
 app.use('/RealTimeProducts', ViewRoutersRealTimeProducts);
+app.use('/index', index);
+
 
 const productManager = new ProductManager( __dirname + '/data/product.json');
 
 const httpServer =  app.listen(8080,() => {
     console.log('server listening on ')  
 })
+
+mongoose.connect('mongodb+srv://ledesmafranco50:BLaLrHEuCZWmMgyV@coderback.rigvj86.mongodb.net/?retryWrites=true&w=majority&appName=coderBack',{dbName: 'coderBack'}).
+then(() => {console.log('Conect BD server')})
 
  export const socketServer = new Server(httpServer)
 
@@ -52,6 +63,15 @@ const httpServer =  app.listen(8080,() => {
     } catch (error) {
         console.error('Error product list:', error);
     }
+
+    socket.on('addProductToCartMongo', async (product) => {
+        try {
+            await CartManagerMG.addCartMongo(product);
+            console.log('Product added to cart');
+        } catch (error) {
+            console.error('Error adding product to cart:', error);
+        }
+    });
 
     socket.on('addProductToCart', async (product) => {
         try {
