@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
         const result = await ProductModel.paginate({}, { 
             limit: queryLimit, 
             page: queryPage,
-            lean: true // Esto convierte los documentos de Mongoose a objetos de JavaScript simples
+            lean: true 
         });
 
         const prevLink = result.hasPrevPage ? `/?limit=${queryLimit}&page=${result.prevPage}` : null;
