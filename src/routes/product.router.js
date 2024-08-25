@@ -35,21 +35,21 @@ router.delete('/:pid', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        // Extrae los parámetros
         const { limit = 10, page = 1, sort = '', query = '' } = req.query;
 
-        const queryLimit = parseInt(limit, 10);
-        const queryPage = parseInt(page, 10);
+        const options = {
+            page: parseInt(page, 10),
+            limit: parseInt(limit, 10),
+            sort: sort ? { price: sort === 'asc' ? 1 : -1 } : {},
+        };
 
-        if (isNaN(queryLimit) || queryLimit <= 0) {
-            return res.status(400).json({ status: 'error', message: 'El límite debe ser un número positivo.' });
-        }
-
-        if (isNaN(queryPage) || queryPage <= 0) {
+        if (isNaN(options.page) || options.page <= 0) {
             return res.status(400).json({ status: 'error', message: 'La página debe ser un número positivo.' });
         }
 
-        const skip = (queryPage - 1) * queryLimit;
+        if (isNaN(options.limit) || options.limit <= 0) {
+            return res.status(400).json({ status: 'error', message: 'El límite debe ser un número positivo.' });
+        }
 
         let searchFilter = {};
         if (query) {
@@ -61,36 +61,20 @@ router.get('/', async (req, res) => {
             }
         }
 
-        const sortOptions = {};
-        if (sort === 'asc') {
-            sortOptions.price = 1; // Orden ascendente por precio
-        } else if (sort === 'desc') {
-            sortOptions.price = -1; // Orden descendente por precio
-        }
+        const result = await ProductModel.paginate(searchFilter, options);
 
-        const productList = await ProductModel.find(searchFilter)
-            .sort(sortOptions)
-            .skip(skip)
-            .limit(queryLimit);
-
-        const totalProducts = await ProductModel.countDocuments(searchFilter);
-        const totalPages = Math.ceil(totalProducts / queryLimit);
-
-        const prevPage = queryPage > 1 ? queryPage - 1 : null;
-        const nextPage = queryPage < totalPages ? queryPage + 1 : null;
-
-        const prevLink = prevPage ? `/api/products?limit=${queryLimit}&page=${prevPage}${sort ? `&sort=${sort}` : ''}${query ? `&query=${query}` : ''}` : null;
-        const nextLink = nextPage ? `/api/products?limit=${queryLimit}&page=${nextPage}${sort ? `&sort=${sort}` : ''}${query ? `&query=${query}` : ''}` : null;
+        const prevLink = result.hasPrevPage ? `/api/products?limit=${options.limit}&page=${result.prevPage}${sort ? `&sort=${sort}` : ''}${query ? `&query=${query}` : ''}` : null;
+        const nextLink = result.hasNextPage ? `/api/products?limit=${options.limit}&page=${result.nextPage}${sort ? `&sort=${sort}` : ''}${query ? `&query=${query}` : ''}` : null;
 
         res.status(200).json({
             status: 'success',
-            payload: productList,
-            totalPages,
-            prevPage,
-            nextPage,
-            page: queryPage,
-            hasPrevPage: prevPage !== null,
-            hasNextPage: nextPage !== null,
+            payload: result.docs,
+            totalPages: result.totalPages,
+            prevPage: result.prevPage,
+            nextPage: result.nextPage,
+            page: result.page,
+            hasPrevPage: result.hasPrevPage,
+            hasNextPage: result.hasNextPage,
             prevLink,
             nextLink
         });
@@ -99,8 +83,6 @@ router.get('/', async (req, res) => {
         res.status(500).json({ status: 'error', message: 'Error al obtener los productos', error: error.message });
     }
 });
-
-
 
 router.get('/:pid', async (req, res) => {
 
